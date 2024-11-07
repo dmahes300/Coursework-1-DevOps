@@ -34,7 +34,26 @@ public class CurrencyConverter {
     public double euroToPound(double amount){
         return amount * 0.84;
     }
+    public static boolean isNumber(String string) {
+        try {
+            int num = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 
+    public static boolean input(String amount, String currency) {
+        currency = currency.toLowerCase(); // Normalize currency to lowercase
+        if (amount.isEmpty() || currency.isEmpty()) {
+            return false;
+        } else if (isNumber(amount) &&
+                (currency.equals("dollars") || currency.equals("pounds") || currency.equals("euros"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public static void main(String[] args) {
         CurrencyConverter currencyConverter;
         currencyConverter = new CurrencyConverter(0,0,0, 0, "");
@@ -43,8 +62,14 @@ public class CurrencyConverter {
 
         DecimalFormat f = new DecimalFormat("##.##");
 
-        amount = Integer.parseInt(args[0]);
-        String currency = args[1];
+        String inputTestAmount = args[0];
+        String currencyTest = args[1];
+
+        boolean input = input(inputTestAmount, currencyTest);
+        if (input == true) {
+            amount = Integer.parseInt(args[0]);
+            String currency = args[1].toLowerCase();
+
 
             // For amounts Conversion
             switch (currency) {
@@ -70,9 +95,9 @@ public class CurrencyConverter {
                     System.out.println(amount + " Euros = " + f.format(pound) + " Pounds");
                     break;
             }
+        } else {System.out.println("invalid input");}
         System.out.println("Thank you for using the converter.");
     }
 
 }
-
 
