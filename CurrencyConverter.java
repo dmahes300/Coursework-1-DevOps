@@ -36,7 +36,7 @@ public class CurrencyConverter {
     }
     public static boolean isNumber(String string) {
         try {
-            int num = Integer.parseInt(string);
+            Integer.parseInt(string);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
